@@ -13,7 +13,7 @@
         <module>NYP</module>
         <module>NYP1</module>
         <module>UiCatalog</module>
-        <module>APIDemo</module>
+        <module>APIDemos</module>
     </modules>
 
     <dependencyManagement>
