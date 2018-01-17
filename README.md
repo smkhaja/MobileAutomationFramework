@@ -59,7 +59,7 @@
     
 
 ## Explanations
-- `/APIDemo`
+- `/APIDemos`
     + Android app
 - `/Generic`
     + Generic module is created to manage all the common settings for all the modules.
@@ -97,3 +97,8 @@
     - [http://appium.io/getting-started.html](http://appium.io/getting-started.html)
 * Node.js + npm
     - [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+* Android - Known issues
+    - [https://developer.android.com/studio/known-issues.html](https://developer.android.com/studio/known-issues.html)
+* Appium - Known issues
+    - [Appium - Getting error: Could not set the device type in Info.plist #5005](https://github.com/appium/appium/issues/5005)
+    - [1.6.0: Could not determine Xcode version. #7134](https://github.com/appium/appium/issues/7134)
