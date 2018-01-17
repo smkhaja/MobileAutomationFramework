@@ -54,8 +54,9 @@ public class MobileAPI {
         t.printStackTrace(pw);
         return sw.toString();
     }
+    @Parameters({"appName"})
     @AfterMethod
-    public void afterEachTestMethod(ITestResult result) {
+    public void afterEachTestMethod(@Optional("") String appName, ITestResult result) {
         ExtentTestManager.getTest().getTest().setStartedTime(getTime(result.getStartMillis()));
         ExtentTestManager.getTest().getTest().setEndedTime(getTime(result.getEndMillis()));
         for (String group : result.getMethod().getGroups()) {
@@ -73,7 +74,7 @@ public class MobileAPI {
         if (result.getStatus() == ITestResult.FAILURE) {
             captureScreenShot(result.getName(),ad);
         }
-        ad.removeApp("nyp.apk");
+        ad.removeApp(appName);
         ad.quit();
     }
     @AfterSuite
@@ -87,6 +88,7 @@ public class MobileAPI {
         return calendar.getTime();
     }
     public static AppiumDriver ad = null;
+    private static WebDriverWait driverWait;
     public File appDirectory = null;
     public File findApp = null;
     @Parameters({"OS","appType","deviceType", "deviceName","version", "moduleName","appName"})
@@ -96,16 +98,16 @@ public class MobileAPI {
                       @Optional("") String appName)throws IOException,InterruptedException{
         if(OS.equalsIgnoreCase("ios")){
             if(appType.contains("iPhone")){
-                appDirectory = new File(moduleName+"src/app");
-                findApp = new File(appDirectory,"UICatalog6.1.app.zip");
+                appDirectory = new File("src/app");
+                findApp = new File(appDirectory,appName);
                 if(deviceType.equalsIgnoreCase("RealDevice")){
                     ad = setUpiOsEnv(deviceName,version);
                 }else if (deviceType.equalsIgnoreCase("Simulator")){
                     ad = setUpiOsEnv(deviceName,version);
                 }
             }else if(appType.equalsIgnoreCase("iPad 2")){
-                appDirectory = new File(moduleName+"src/app");
-                findApp = new File(appDirectory,"UICatalog6.1.app.zip");
+                appDirectory = new File("src/app");
+                findApp = new File(appDirectory,appName);
                 if(deviceType.contains("RealDevice")){
                     ad = setUpiOsEnv(deviceName,version);
                 }else if (deviceType.equalsIgnoreCase("Simulator")){
@@ -363,5 +365,84 @@ public class MobileAPI {
     public void scrollToElement(AppiumDriver driver, String text){
         MobileElement we = (MobileElement) driver.findElementByXPath(text);
         driver.scrollTo(we.getText());
+    }
+    /////-----*****-----/////-----*****-----/////-----*****-----/////-----*****-----/////-----*****-----/////
+    // Set implicit wait in seconds
+    public static void setWait(int seconds) {
+        ad.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+    }
+
+    // Return an element by locator
+    public static WebElement element(By locator) {
+        return ad.findElement(locator);
+    }
+    // Return a list of elements by locator
+    public static List<WebElement> elements(By locator) {
+        return ad.findElements(locator);
+    }
+    // Press the back button
+    public static void back() {
+        ad.navigate().back();
+    }
+    // Return a list of elements by tag name
+    public static List<WebElement> tags(String tagName) {
+        return elements(for_tags(tagName));
+    }
+    // Return a tag name locator
+    public static By for_tags(String tagName) {
+        return By.className(tagName);
+    }
+    // Return a static text element by xpath index
+    public static WebElement s_text(int xpathIndex) {
+        return element(for_text(xpathIndex));
+    }
+    // Return a static text locator by xpath index
+    public static By for_text(int xpathIndex) {
+        return By.xpath("//android.widget.TextView[" + xpathIndex + "]");
+    }
+    // Return a static text element that contains text
+    public static WebElement text(String text) {
+        return element(for_text(text));
+    }
+    // Return a static text locator that contains text
+    public static By for_text(String text) {
+        return By.xpath("//android.widget.TextView[contains(@text, '" + text + "')]");
+    }
+    // Return a static text element by exact text
+    public static WebElement text_exact(String text) {
+        return element(for_text_exact(text));
+    }
+    // Return a static text locator by exact text
+    public static By for_text_exact(String text) {
+        return By.xpath("//android.widget.TextView[@text='" + text + "']");
+    }
+    public static By for_find(String value) {
+        return By.xpath("//*[@content-desc=\"" + value + "\" or @resource-id=\"" + value +
+                "\" or @text=\"" + value + "\"] | //*[contains(translate(@content-desc,\"" + value +
+                "\",\"" + value + "\"), \"" + value + "\") or contains(translate(@text,\"" + value +
+                "\",\"" + value + "\"), \"" + value + "\") or @resource-id=\"" + value + "\"]");
+    }
+    public static WebElement find(String value) {
+        return element(for_find(value));
+    }
+    // Wait 30 seconds for locator to find an element
+    public static WebElement wait(By locator) {
+        return driverWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+    // Wait 60 seconds for locator to find all elements
+    public static List<WebElement> waitAll(By locator) {
+        return driverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+    }
+    // Wait 60 seconds for locator to not find a visible element
+    public static boolean waitInvisible(By locator) {
+        return driverWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+    // Return an element that contains name or text
+    public static WebElement scroll_to(String value) {
+        return ad.scrollTo(value);
+    }
+    // Return an element that exactly matches name or text
+    public static WebElement scroll_to_exact(String value) {
+        return ad.scrollToExact(value);
     }
 }
