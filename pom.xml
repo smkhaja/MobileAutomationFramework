@@ -11,6 +11,9 @@
     <modules>
         <module>Generic</module>
         <module>NYP</module>
+        <module>NYP1</module>
+        <module>UiCatalog</module>
+        <module>APIDemo</module>
     </modules>
 
     <dependencyManagement>
