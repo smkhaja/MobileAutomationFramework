@@ -25,9 +25,9 @@
     + In the Clone with HTTPs section, copy the clone URL for the repository.
     + Open Terminal and navigate to your workspace.
     + Type git clone, and then paste the URL you copied.
-    `git clone https://github.com/YOUR-USERNAME/Team2WebAutomation.git`. This will clone the master branch.
+    `git clone https://github.com/your-username/project-name.git`. This will clone the master branch.
         - To clone a specific github branch: 
-        `git clone -b your-branch git@github.com:user/myproject.git`
+        `git clone -b your-branch git@github.com:user/project-name.git`
     + Press Enter. Your local clone will be created.
 
 - Switch to your branch
@@ -59,9 +59,16 @@
     
 
 ## Explanations
-
+- `/APIDemo`
+    + Android app
 - `/Generic`
     + Generic module is created to manage all the common settings for all the modules.
+- `/NYP`
+    + Android app
+- `/NYP1`
+    + Android app - newer version of NYP
+- `/UiCatalog`
+    + iOS app
 - `.gitignore`
     + Git uses this file to determine which files and directories to ignore, before you make a commit.
 - `.travis.yml`
