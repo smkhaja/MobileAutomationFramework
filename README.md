@@ -1,4 +1,4 @@
-# Mobile Automation [![Build Status](https://travis-ci.org/mhasan90/Team2MobileAutomation.svg?branch=master)](https://travis-ci.org/mhasan90/Team2MobileAutomation)
+# Mobile Automation [![Build Status](https://travis-ci.org/mhasan90/T2MobileAutomation.svg?branch=master)](https://travis-ci.org/mhasan90/T2MobileAutomation)
 ## Technical Requirements
 
 - Must have:
