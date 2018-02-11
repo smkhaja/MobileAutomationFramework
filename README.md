@@ -1,4 +1,4 @@
-# Mobile Automation Framework [![Build Status](https://travis-ci.com/mhasan90/MobileAutomationFramework.svg?token=17GyxBDkgpsJ5Vp6VMsv&branch=master)](https://travis-ci.com/mhasan90/MobileAutomationFramework)
+# Mobile Automation Framework [![Build Status](https://travis-ci.org/mhasan012/MobileAutomationFramework.svg?branch=master)](https://travis-ci.org/mhasan012/MobileAutomationFramework)
 
 ## Technical Requirements
 
